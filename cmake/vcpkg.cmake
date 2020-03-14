@@ -23,18 +23,18 @@ function(init_vcpkg)
 	endif()
 
 	DetectPath(DEVEL_BUILDPATH ${CMAKE_BINARY_DIR})
-	DetectPath(BUILD_TOOLS_DIR ${DEVEL_BUILDPATH}/tools)
 	DetectPath(VCPKG_ROOT ${DEVEL_BUILDPATH}/vcpkg)
 
 	file(LOCK ${DEVEL_BUILDPATH} DIRECTORY GUARD FUNCTION)
 	set(CMAKE_TOOLCHAIN_FILE ${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake CACHE PATH "")
 	if(NOT EXISTS ${VCPKG_ROOT}/README.md)
+		find_package(Git REQUIRED)
 		message("Cloning vcpkg in ${VCPKG_ROOT}")
-		execute_process(COMMAND git clone https://github.com/Microsoft/vcpkg.git ${VCPKG_ROOT})
+		myexec(${CMAKE_BINARY_DIR} ${GIT_EXECUTABLE} clone https://github.com/Microsoft/vcpkg.git ${VCPKG_ROOT})
 # Open ssl issue
 		#execute_process(COMMAND git -C ${VCPKG_ROOT} checkout bdae0904c41a0ee2c5204d6449038d3b5d551726~1)
 		file (GLOB PATCHES ${CMAKE_CURRENT_LIST_DIR}/vcpkg.*.patch)
-		myexec(${VCPKG_ROOT} git apply ${PATCHES} )
+		myexec(${VCPKG_ROOT} ${GIT_EXECUTABLE} apply ${PATCHES} )
 	endif()
 
 	if(NOT EXISTS ${VCPKG_ROOT}/README.md)
