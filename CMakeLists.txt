@@ -8,9 +8,15 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(Qt5 REQUIRED COMPONENTS Qml Quick Location)
-find_package(Qt5QuickCompiler REQUIRED)
+find_package(Qt5 CONFIG REQUIRED Core Qml Quick QuickCompiler Location Positioning PositioningQuick Network)
 
 qtquick_compiler_add_resources(MAIN_RESOURCES qml.qrc)
 add_executable(main main.cpp ${MAIN_RESOURCES})
-qt5_use_modules(main Qml Quick Location)
+target_link_libraries(main PRIVATE Qt5::Core Qt5::Qml Qt5::Quick Qt5::Location Qt5::LocationPrivate Qt5::PositioningQuick Qt5::Positioning Qt5::Network)
+add_custom_command(
+	TARGET main
+	POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt5::PositioningQuick> $<TARGET_FILE_DIR:main>
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt5::Positioning> $<TARGET_FILE_DIR:main>
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt5::Location> $<TARGET_FILE_DIR:main>
+)
