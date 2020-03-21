@@ -16,11 +16,3 @@ target_link_libraries(
 	main PRIVATE
 	Qt5::Core Qt5::Gui Qt5::Qml Qt5::Quick
 	)
-add_custom_command(
-	TARGET main
-	POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt5::Core> $<TARGET_FILE_DIR:main>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt5::Gui> $<TARGET_FILE_DIR:main>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt5::Qml> $<TARGET_FILE_DIR:main>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Qt5::Quick> $<TARGET_FILE_DIR:main>
-)
