@@ -1,22 +1,36 @@
 import QtQuick 2.0
-import QtQuick.Window 2.12
-import QtLocation 5.12
-import QtPositioning 5.12
+import OpenGLUnderQML 1.0
 
-Window {
-    width: 512
-    height: 512
-    visible: true
+Item {
 
-    Plugin {
-        id: mapPlugin
-        name: "osm"
+    width: 320
+    height: 480
+
+    Squircle {
+        SequentialAnimation on t {
+            NumberAnimation { to: 1; duration: 2500; easing.type: Easing.InQuad }
+            NumberAnimation { to: 0; duration: 2500; easing.type: Easing.OutQuad }
+            loops: Animation.Infinite
+            running: true
+        }
+    }
+    Rectangle {
+        color: Qt.rgba(1, 1, 1, 0.7)
+        radius: 10
+        border.width: 1
+        border.color: "white"
+        anchors.fill: label
+        anchors.margins: -10
     }
 
-    Map {
-        anchors.fill: parent
-        plugin: mapPlugin
-        center: QtPositioning.coordinate(59.91, 10.75) // Oslo
-        zoomLevel: 14
+    Text {
+        id: label
+        color: "black"
+        wrapMode: Text.WordWrap
+        text: "The background here is a squircle rendered with raw OpenGL using the 'beforeRender()' signal in QQuickWindow. This text label and its border is rendered using QML"
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.margins: 20
     }
 }

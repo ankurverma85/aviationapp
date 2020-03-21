@@ -1,12 +1,19 @@
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
 
-int main(int argc, char* argv[])
+#include <QtQuick/QQuickView>
+
+#include "squircle.h"
+
+int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    qmlRegisterType<Squircle>("OpenGLUnderQML", 1, 0, "Squircle");
+
+    QQuickView view;
+    view.setResizeMode(QQuickView::SizeRootObjectToView);
+    view.setSource(QUrl("qrc:///main.qml"));
+    view.show();
 
     return app.exec();
 }
