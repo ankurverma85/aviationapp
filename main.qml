@@ -1,7 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import OpenGLUnderQML 1.0
-import QtQuick.Controls 2.0
-import QtQuick.Window 2.0
+import QtQuick.Controls 2.12
+import QtQuick.Window 2.12
 
 ApplicationWindow {
     id: applicationWindow
@@ -43,13 +43,34 @@ ApplicationWindow {
     }
 
     Drawer {
-        id: drawer
+        id: navigationDrawer
         width: Math.min(applicationWindow.width, 200)
         height: applicationWindow.height
 
         Label {
             text: "Navigation drawer"
             anchors.centerIn: parent
+        }
+
+        ListView {
+            id: navigationListView
+            anchors.fill: parent
+            model: ListModel {
+                ListElement { nav: "map" }
+                ListElement { nav: "planning" }
+                ListElement { nav: "wb" }
+            }
+            delegate: Rectangle {
+                width: parent.width
+                height: childrenRect.height
+                Text {
+                    text: nav
+                    font.pointSize: 20
+                }
+                TapHandler {
+                    onTapped: console.log(nav + " tapped")
+                }
+            }
         }
     }
 }
