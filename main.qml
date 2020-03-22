@@ -44,7 +44,7 @@ ApplicationWindow {
 
     Drawer {
         id: navigationDrawer
-        width: Math.min(applicationWindow.width, 200)
+        width: Math.max(Math.min(applicationWindow.width, 200), 0.67 * applicationWindow.width)
         height: applicationWindow.height
 
         Label {
