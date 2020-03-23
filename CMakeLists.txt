@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(Qt5 CONFIG REQUIRED Core Qml Quick QuickCompiler)
 
-qtquick_compiler_add_resources(MAIN_RESOURCES qml.qrc)
+qtquick_compiler_add_resources(MAIN_RESOURCES main.qrc)
 add_executable(main main.cpp squircle.cpp ${MAIN_RESOURCES})
 target_link_libraries(
 	main PRIVATE

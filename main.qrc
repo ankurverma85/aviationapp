@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/map.qml</file>
+        <file>qml/planning.qml</file>
+        <file>qml/wb.qml</file>
+    </qresource>
+</RCC>
