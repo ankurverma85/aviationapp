@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AviationApp.WeightAndBalance.WeightAndBalancePage">
+    <ContentPage.Content>
+        <TableView Intent="Form">
+            <TableRoot>
+                <TableSection Title="Aircraft">
+                    <TextCell Text="Aircraft Identifier" Detail="N7991U" />
+                    <TextCell Text="Aircraft Type" Detail="C150" />
+                </TableSection>
+                <TableSection Title="Pilot and Passenger">
+                    <ViewCell>
+                        <Grid Margin="15,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="Pilot" />
+                            <Entry Grid.Column="1" HorizontalOptions="FillAndExpand" Text="100" Keyboard="Numeric" HorizontalTextAlignment="End" />
+                            <Picker Grid.Column="2" HorizontalOptions="Fill" SelectedIndex="1">
+                                <Picker.Items>
+                                    <x:String>kg</x:String>
+                                    <x:String>lb</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="Baggage">
+                    <ViewCell>
+                        <Grid Margin="15,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="Baggage" />
+                            <Entry Grid.Column="1" HorizontalOptions="Fill" Text="100" Keyboard="Numeric" HorizontalTextAlignment="End" />
+                            <Picker Grid.Column="2" HorizontalOptions="Fill" SelectedIndex="1">
+                                <Picker.Items>
+                                    <x:String>kg</x:String>
+                                    <x:String>lb</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="Fuel">
+                    <ViewCell>
+                        <Grid Margin="15,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="Main tanks" />
+                            <Slider Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Maximum="22.5" x:Name="fuelslider" />
+                            <Label Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="{Binding Source={x:Reference fuelslider}, Path=Value, StringFormat='{0:F1} gal'}" />
+                        </Grid>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>
