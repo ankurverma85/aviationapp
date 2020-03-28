@@ -53,7 +53,7 @@
                 </TableSection>
                 <TableSection Title="Fuel">
                     <ViewCell>
-                        <views:FuelView />
+                        <views:FuelStationView />
                     </ViewCell>
                 </TableSection>
             </TableRoot>

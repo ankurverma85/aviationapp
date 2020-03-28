@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="WeightAndBalance\FuelView.xaml.cs">
-      <DependentUpon>FuelView.xaml</DependentUpon>
+    <Compile Update="WeightAndBalance\FuelStationView.xaml.cs">
+      <DependentUpon>FuelStationView.xaml</DependentUpon>
     </Compile>
     <Compile Update="WeightAndBalance\WeightAndBalancePage.xaml.cs">
       <DependentUpon>WeightAndBalancePage.xaml</DependentUpon>
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="WeightAndBalance\FuelView.xaml">
+    <EmbeddedResource Update="WeightAndBalance\FuelStationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="WeightAndBalance\WeightAndBalancePage.xaml">

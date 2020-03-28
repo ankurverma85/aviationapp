@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace AviationApp.WeightAndBalance
 {
-    class FuelViewModel : INotifyPropertyChanged
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class FuelStationView : ContentView
     {
-        public FuelViewModel()
+        public FuelStationView()
+        {
+            InitializeComponent();
+        }
+    }
+
+    class FuelStationViewModel : INotifyPropertyChanged
+    {
+        public FuelStationViewModel()
         { arm = 0.0f; capacity = 0.0f; fuelWeightInKg = 0.0f; }
-        public FuelViewModel(float arm, float capacity)
+        public FuelStationViewModel(float arm, float capacity)
         {
             this.arm = arm;
             this.capacity = capacity;
@@ -17,7 +26,8 @@ namespace AviationApp.WeightAndBalance
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private float _fuelWeightInKg;
-        public float fuelWeightInKg {
+        public float fuelWeightInKg
+        {
             get => _fuelWeightInKg;
             set
             {

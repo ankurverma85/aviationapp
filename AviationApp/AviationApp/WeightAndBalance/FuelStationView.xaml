@@ -4,15 +4,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="AviationApp.WeightAndBalance.FuelView"
+             x:Class="AviationApp.WeightAndBalance.FuelStationView"
              xmlns:local="clr-namespace:AviationApp.WeightAndBalance">
     <ContentView.BindingContext>
-        <local:FuelViewModel>
+        <local:FuelStationViewModel>
             <x:Arguments>
                 <x:Single>1.0</x:Single>
                 <x:Single>100</x:Single>
             </x:Arguments>
-        </local:FuelViewModel>
+        </local:FuelStationViewModel>
     </ContentView.BindingContext>
   <ContentView.Content>
         <Grid Margin="15,0">
