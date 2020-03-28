@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="AviationApp.WeightAndBalance.WeightAndBalancePage">
+             x:Class="AviationApp.WeightAndBalance.WeightAndBalancePage"
+             xmlns:views="clr-namespace:AviationApp.WeightAndBalance">
     <ContentPage.Content>
         <TableView Intent="Form">
             <TableRoot>
@@ -52,16 +53,7 @@
                 </TableSection>
                 <TableSection Title="Fuel">
                     <ViewCell>
-                        <Grid Margin="15,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="0.5*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="Main tanks" />
-                            <Slider Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Maximum="22.5" x:Name="fuelslider" />
-                            <Label Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="{Binding Source={x:Reference fuelslider}, Path=Value, StringFormat='{0:F1} gal'}" />
-                        </Grid>
+                        <views:FuelView />
                     </ViewCell>
                 </TableSection>
             </TableRoot>

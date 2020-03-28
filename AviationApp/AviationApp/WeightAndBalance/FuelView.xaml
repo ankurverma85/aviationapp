@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AviationApp.WeightAndBalance.FuelView"
+             xmlns:local="clr-namespace:AviationApp.WeightAndBalance">
+    <ContentView.BindingContext>
+        <local:FuelViewModel>
+            <x:Arguments>
+                <x:Single>1.0</x:Single>
+                <x:Single>100</x:Single>
+            </x:Arguments>
+        </local:FuelViewModel>
+    </ContentView.BindingContext>
+  <ContentView.Content>
+        <Grid Margin="15,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.25*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="Main tanks" />
+            <Slider Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Maximum="{Binding capacity}" Value="{Binding fuelWeightInKg}" />
+            <Label Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="{Binding FuelVolumeGal}" />
+            <Picker Grid.Column="3">
+                <Picker.Items>
+                    <x:String>kg</x:String>
+                    <x:String>lb</x:String>
+                    <x:String>l</x:String>
+                    <x:String>gal</x:String>
+                </Picker.Items>
+            </Picker>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
