@@ -8,8 +8,7 @@ namespace AviationApp.Utilities.Units
     {
         private const double METRES_IN_SM = 1609.3440000000103;
         private const double METRES_IN_NM = 1852.0;
-        Length() { lengthInM = 0.0; }
-        private double lengthInM;
+        private double lengthInM = 0.0;
         public double Metre { get => lengthInM; set { lengthInM = value; } }
         public double KiloMetre { get => lengthInM / 1000.0; set { lengthInM = value * 1000.0; } }
         public double StatuteMile { get => lengthInM * METRES_IN_SM; set { lengthInM = value / METRES_IN_SM; } }
