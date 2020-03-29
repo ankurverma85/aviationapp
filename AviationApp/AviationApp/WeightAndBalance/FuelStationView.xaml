@@ -11,6 +11,7 @@
             <x:Arguments>
                 <x:Single>1.0</x:Single>
                 <x:Single>100</x:Single>
+                <x:Int32>0</x:Int32>
             </x:Arguments>
         </local:FuelStationViewModel>
     </ContentView.BindingContext>
@@ -24,15 +25,8 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="Main tanks" />
             <Slider Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Maximum="{Binding capacity}" Value="{Binding fuelWeightInKg}" />
-            <Label Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="{Binding FuelVolumeGal}" />
-            <Picker Grid.Column="3">
-                <Picker.Items>
-                    <x:String>kg</x:String>
-                    <x:String>lb</x:String>
-                    <x:String>l</x:String>
-                    <x:String>gal</x:String>
-                </Picker.Items>
-            </Picker>
+            <Label Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Text="{Binding displayFuel}" />
+            <Picker Grid.Column="3" x:Name="unitsPicker" SelectedIndex="{Binding displayUnits}"/>
         </Grid>
     </ContentView.Content>
 </ContentView>
