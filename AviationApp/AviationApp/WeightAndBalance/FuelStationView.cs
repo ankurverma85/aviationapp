@@ -9,6 +9,16 @@ namespace AviationApp.WeightAndBalance
     {
         public FuelStationView()
         {
+            viewModel = new FuelStationViewModel(1.0, 100.0, 50.0, (int)FuelQuantityUnits.kg);
+            CreateGridView();
+        }
+        public FuelStationView(double arm, double capacity, double initialFuel, int units)
+        {
+            viewModel = new FuelStationViewModel(arm, capacity, initialFuel, (FuelQuantityUnits)units);
+            CreateGridView();
+        }
+        private void CreateGridView()
+        {
             var grid = new Grid { Padding = new Thickness(15, 0) };
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
@@ -25,14 +35,13 @@ namespace AviationApp.WeightAndBalance
             grid.Children.Add(fuelQuantityDisplay, 2, 0);
             grid.Children.Add(fuelUnitsPicker, 3, 0);
 
-            viewModel = new FuelStationViewModel(1.0, 100.0, 50.0, (int)FuelQuantityUnits.kg);
-
             fuelQuantitySlider.Maximum = viewModel.capacity;
             fuelQuantitySlider.ValueChanged += (sender, args) =>
             {
                 viewModel.fuelWeightInKg = fuelQuantitySlider.Value;
                 fuelQuantityDisplay.Text = viewModel.displayFuelFormatted;
             };
+            fuelQuantitySlider.Value = viewModel.fuelWeightInKg;
             foreach (FuelQuantityUnits u in Enum.GetValues(typeof(FuelQuantityUnits)))
             {
                 fuelUnitsPicker.Items.Add(u.ToString());
