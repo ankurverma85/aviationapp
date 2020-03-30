@@ -5,10 +5,13 @@ using System.Diagnostics;
 namespace AviationApp.Utilities.Quantities
 {
     enum FuelUnits { kg, lb, l, usgal, impgal };
+    enum FuelType { AvGas, Jet };
     interface IFuel
     {
         Mass Mass { get; }
         void SetQuantity(double quantity, FuelUnits unit);
+        double GetQuantity(FuelUnits unit);
+        public static List<FuelUnits> AcceptableUnits();
     }
     class AvGasFuel : IFuel
     {
@@ -23,6 +26,18 @@ namespace AviationApp.Utilities.Quantities
                 case FuelUnits.l: volume.Litre = quantity; break;
                 case FuelUnits.usgal: volume.USGallon = quantity; break;
                 case FuelUnits.impgal: volume.ImperialGallon = quantity; break;
+                default: throw new System.Exception();
+            }
+        }
+
+        public double GetQuantity(FuelUnits unit)
+        {
+            Debug.Assert(AcceptableUnits().Contains(unit));
+            switch (unit)
+            {
+                case FuelUnits.l: return volume.Litre;
+                case FuelUnits.usgal: return volume.USGallon;
+                case FuelUnits.impgal: return volume.ImperialGallon;
                 default: throw new System.Exception();
             }
         }
@@ -42,6 +57,17 @@ namespace AviationApp.Utilities.Quantities
             {
                 case FuelUnits.kg: mass.KiloGrams = quantity; break;
                 case FuelUnits.lb: mass.Pounds = quantity; break;
+                default: throw new System.Exception();
+            }
+        }
+
+        public double GetQuantity(FuelUnits unit)
+        {
+            Debug.Assert(AcceptableUnits().Contains(unit));
+            switch (unit)
+            {
+                case FuelUnits.kg: return mass.KiloGrams;
+                case FuelUnits.lb: return mass.Pounds;
                 default: throw new System.Exception();
             }
         }
