@@ -11,12 +11,13 @@ namespace AviationApp.Utilities.Quantities
         Mass Mass { get; }
         void SetQuantity(double quantity, FuelUnits unit);
         double GetQuantity(FuelUnits unit);
-        public static List<FuelUnits> AcceptableUnits();
+        List<FuelUnits> AcceptableUnits();
+        FuelType FuelType { get; }
     }
     class AvGasFuel : IFuel
     {
         private const double AVGAS_DENSITY_KG_M3 = 768.0;
-        public static List<FuelUnits> AcceptableUnits() { return new List<FuelUnits> { FuelUnits.l, FuelUnits.usgal, FuelUnits.impgal }; }
+        public List<FuelUnits> AcceptableUnits() { return new List<FuelUnits> { FuelUnits.l, FuelUnits.usgal, FuelUnits.impgal }; }
 
         public void SetQuantity(double quantity, FuelUnits unit)
         {
@@ -45,15 +46,17 @@ namespace AviationApp.Utilities.Quantities
         private Volume volume = new Volume();
 
         public Mass Mass { get => new Mass { KiloGrams = AVGAS_DENSITY_KG_M3 * volume.CubicMetre }; }
+
+        public FuelType FuelType => FuelType.AvGas;
     }
     class JetFuel : IFuel
     {
-        public static List<FuelUnits> AcceptableUnits() { return new List<FuelUnits> { FuelUnits.kg, FuelUnits.lb }; }
+        public List<FuelUnits> AcceptableUnits() { return new List<FuelUnits> { FuelUnits.kg, FuelUnits.lb }; }
 
         public void SetQuantity(double quantity, FuelUnits unit)
         {
             Debug.Assert(AcceptableUnits().Contains(unit));
-            switch(unit)
+            switch (unit)
             {
                 case FuelUnits.kg: mass.KiloGrams = quantity; break;
                 case FuelUnits.lb: mass.Pounds = quantity; break;
@@ -75,5 +78,7 @@ namespace AviationApp.Utilities.Quantities
         private Mass mass = new Mass();
 
         public Mass Mass => mass;
+
+        public FuelType FuelType => FuelType.Jet;
     }
 }
