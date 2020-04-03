@@ -6,7 +6,6 @@ using AviationApp.Utilities.Quantities;
 
 namespace AviationApp.WeightAndBalance
 {
-
     class LoadSheet
     {
         public string AircraftIdentifier { get; set; } = string.Empty;
@@ -18,7 +17,7 @@ namespace AviationApp.WeightAndBalance
     }
     class LoadStation
     {
-        LoadStation(string stationName, Length stationArm, Mass maximumMass)
+        public LoadStation(string stationName, Length stationArm, Mass maximumMass)
         {
             StationName = stationName;
             StationArm = stationArm;
@@ -38,12 +37,12 @@ namespace AviationApp.WeightAndBalance
     }
     class FuelStation
     {
-        FuelStation(string name, Length arm, IFuel capacity)
+        public FuelStation(string name, Length arm, IFuel capacity)
         {
             Name = name;
             Arm = arm;
             Capacity = capacity;
-            switch(capacity.FuelType)
+            switch (capacity.FuelType)
             {
                 case FuelType.AvGas: Fuel = new AvGasFuel(); break;
                 case FuelType.Jet: Fuel = new JetFuel(); break;
@@ -52,8 +51,8 @@ namespace AviationApp.WeightAndBalance
         }
         public string Name { get; } = string.Empty;
         public Length Arm { get; } = new Length();
-        public IFuel Fuel { get; set; }
-        public IFuel Capacity { get; }
+        public IFuel Fuel { get; } = null;
+        public IFuel Capacity { get; } = null;
         public Mass Mass { get => Fuel.Mass; }
     }
 }
