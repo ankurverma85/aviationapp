@@ -4,6 +4,7 @@ using System.Text;
 
 namespace AviationApp.Utilities.Units
 {
+    enum LengthUnits { m, mm, cm, km, sm, nm, ft, inch }
     class Length
     {
         private const double METRES_IN_SM = 1609.3440000000103;
@@ -11,6 +12,8 @@ namespace AviationApp.Utilities.Units
         private const double METRES_IN_FEET = 0.30480000;
 
         public double Metre { get; set; } = 0.0;
+        public double Centimetre { get => Metre * 100.0; set { Metre = value / 100.0; } }
+        public double Millimetre { get => Metre * 1000.0; set { Metre = value / 1000.0; } }
         public double KiloMetre { get => Metre / 1000.0; set { Metre = value * 1000.0; } }
         public double StatuteMile { get => Metre / METRES_IN_SM; set { Metre = value * METRES_IN_SM; } }
         public double NauticalMile { get => Metre / METRES_IN_NM; set { Metre = value * METRES_IN_NM; } }
