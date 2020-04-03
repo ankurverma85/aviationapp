@@ -24,9 +24,9 @@ namespace AviationApp.Utilities.Quantities
             Debug.Assert(AcceptableUnits().Contains(unit));
             switch (unit)
             {
-                case FuelUnits.l: volume.Litre = quantity; break;
-                case FuelUnits.usgal: volume.USGallon = quantity; break;
-                case FuelUnits.impgal: volume.ImperialGallon = quantity; break;
+                case FuelUnits.l: Volume.Litre = quantity; break;
+                case FuelUnits.usgal: Volume.USGallon = quantity; break;
+                case FuelUnits.impgal: Volume.ImperialGallon = quantity; break;
                 default: throw new System.Exception();
             }
         }
@@ -36,16 +36,16 @@ namespace AviationApp.Utilities.Quantities
             Debug.Assert(AcceptableUnits().Contains(unit));
             switch (unit)
             {
-                case FuelUnits.l: return volume.Litre;
-                case FuelUnits.usgal: return volume.USGallon;
-                case FuelUnits.impgal: return volume.ImperialGallon;
+                case FuelUnits.l: return Volume.Litre;
+                case FuelUnits.usgal: return Volume.USGallon;
+                case FuelUnits.impgal: return Volume.ImperialGallon;
                 default: throw new System.Exception();
             }
         }
 
-        private Volume volume = new Volume();
+        public Volume Volume { get; set; } = new Volume();
 
-        public Mass Mass { get => new Mass { KiloGrams = AVGAS_DENSITY_KG_M3 * volume.CubicMetre }; }
+        public Mass Mass { get => new Mass { KiloGrams = AVGAS_DENSITY_KG_M3 * Volume.CubicMetre }; }
 
         public FuelType FuelType => FuelType.AvGas;
     }
@@ -58,8 +58,8 @@ namespace AviationApp.Utilities.Quantities
             Debug.Assert(AcceptableUnits().Contains(unit));
             switch (unit)
             {
-                case FuelUnits.kg: mass.KiloGrams = quantity; break;
-                case FuelUnits.lb: mass.Pounds = quantity; break;
+                case FuelUnits.kg: Mass.KiloGrams = quantity; break;
+                case FuelUnits.lb: Mass.Pounds = quantity; break;
                 default: throw new System.Exception();
             }
         }
@@ -69,15 +69,13 @@ namespace AviationApp.Utilities.Quantities
             Debug.Assert(AcceptableUnits().Contains(unit));
             switch (unit)
             {
-                case FuelUnits.kg: return mass.KiloGrams;
-                case FuelUnits.lb: return mass.Pounds;
+                case FuelUnits.kg: return Mass.KiloGrams;
+                case FuelUnits.lb: return Mass.Pounds;
                 default: throw new System.Exception();
             }
         }
 
-        private Mass mass = new Mass();
-
-        public Mass Mass => mass;
+        public Mass Mass { get; } = new Mass();
 
         public FuelType FuelType => FuelType.Jet;
     }
