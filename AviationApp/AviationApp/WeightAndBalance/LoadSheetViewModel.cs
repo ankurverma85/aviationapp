@@ -1,8 +1,10 @@
-﻿using AviationApp.Utilities.Quantities;
-using AviationApp.Utilities.Units;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+using AviationApp.Utilities.Quantities;
+using AviationApp.Utilities.Units;
+
 using Xamarin.Forms;
 
 namespace AviationApp.WeightAndBalance
@@ -41,9 +43,11 @@ namespace AviationApp.WeightAndBalance
             {
                 loadSheet = value;
                 LoadSheetGroups.Clear();
-                LoadSheetGroup aircraftIdentification = new LoadSheetGroup("Aircraft Information");
-                aircraftIdentification.Add(new LoadSheetTitleDescription("Identifier", loadSheet.AircraftIdentifier));
-                aircraftIdentification.Add(new LoadSheetTitleDescription("Type", loadSheet.AircraftType));
+                LoadSheetGroup aircraftIdentification = new LoadSheetGroup("Aircraft Information")
+                {
+                    new LoadSheetTitleDescription("Identifier", loadSheet.AircraftIdentifier),
+                    new LoadSheetTitleDescription("Type", loadSheet.AircraftType)
+                };
                 LoadSheetGroup weightStations = new LoadSheetGroup("Weight");
                 foreach (var weightStation in loadSheet.LoadStations)
                 {
@@ -74,11 +78,19 @@ namespace AviationApp.WeightAndBalance
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            if (item is LoadSheetTitleDescription) return TitleDescriptionTemplate;
-            else if (item is LoadSheetWeightStationHeader) return WeightStationHeaderTemplate;
-            else if (item is LoadSheetWeightStationItem) return WeightStationItemTemplate;
-            else if (item is LoadSheetFuelStation) return FuelStationTemplate;
-            else throw new System.Exception();
+            switch (item)
+            {
+                case LoadSheetTitleDescription _:
+                    return TitleDescriptionTemplate;
+                case LoadSheetWeightStationHeader _:
+                    return WeightStationHeaderTemplate;
+                case LoadSheetWeightStationItem _:
+                    return WeightStationItemTemplate;
+                case LoadSheetFuelStation _:
+                    return FuelStationTemplate;
+                default:
+                    throw new System.Exception();
+            }
         }
     }
     internal interface ILoadSheetRow { }
@@ -143,9 +155,17 @@ namespace AviationApp.WeightAndBalance
     {
         public LoadSheetFuelStation(string title, double arm_length, LengthUnits armunits, IFuel capacity) : base(title, arm_length, armunits)
         {
-            if (capacity is AvGasFuel) { fuel = new AvGasFuel(); }
-            else if (capacity is JetFuel) { fuel = new JetFuel(); }
-            else throw new System.Exception();
+            switch (capacity)
+            {
+                case AvGasFuel _:
+                    fuel = new AvGasFuel();
+                    break;
+                case JetFuel _:
+                    fuel = new JetFuel();
+                    break;
+                default:
+                    throw new System.Exception();
+            }
             FuelDisplayUnit = FuelDisplayUnits[0];
             fuelCapacity = capacity.GetQuantity(FuelDisplayUnits[0]);
         }

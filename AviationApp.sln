@@ -9,7 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviationApp.Android", "Avia
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviationApp.iOS", "AviationApp\AviationApp.iOS\AviationApp.iOS.csproj", "{33AA5F9C-E2DB-42B9-93A3-DD1E5A6E9CF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviationApp", "AviationApp\AviationApp\AviationApp.csproj", "{91B3A702-0E6D-427F-9A5B-B3EC31329F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AviationApp", "AviationApp\AviationApp\AviationApp.csproj", "{91B3A702-0E6D-427F-9A5B-B3EC31329F43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C9EE62C-D5B9-4B24-A54A-D5F2C95E57A4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

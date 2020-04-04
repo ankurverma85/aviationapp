@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-using AviationApp.Utilities.Units;
 using AviationApp.Utilities.Quantities;
+using AviationApp.Utilities.Units;
 
 namespace AviationApp.WeightAndBalance
 {
@@ -26,8 +25,8 @@ namespace AviationApp.WeightAndBalance
         public string StationName { get; } = string.Empty;
         public Length StationArm { get; } = new Length();
         public List<StationItem> StationItems { get; set; } = new List<StationItem> { };
-        public Mass MaximumMass { get; } = new Mass { KiloGrams = Double.PositiveInfinity };
-        public Mass TotalMass { get { Mass m = new Mass(); foreach (var si in StationItems) { m += si.Mass; } return m; } }
+        public Mass MaximumMass { get; } = new Mass { KiloGrams = double.PositiveInfinity };
+        public Mass TotalMass { get { Mass m = new Mass(); foreach (StationItem si in StationItems) { m += si.Mass; } return m; } }
         public bool MaximumMassExceeded { get => TotalMass > MaximumMass; }
     }
     class StationItem
@@ -53,6 +52,6 @@ namespace AviationApp.WeightAndBalance
         public Length Arm { get; } = new Length();
         public IFuel Fuel { get; } = null;
         public IFuel Capacity { get; } = null;
-        public Mass Mass { get => Fuel.Mass; }
+        public Mass Mass => Fuel.Mass;
     }
 }
