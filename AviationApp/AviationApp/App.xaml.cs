@@ -10,7 +10,7 @@ namespace AviationApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new WeightAndBalance.WeightAndBalancePage();
         }
 
         protected override void OnStart()

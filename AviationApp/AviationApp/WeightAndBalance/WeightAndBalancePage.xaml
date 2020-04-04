@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AviationApp.WeightAndBalance.WeightAndBalancePage"
+             xmlns:local="clr-namespace:AviationApp.WeightAndBalance">
+    <ContentPage.BindingContext>
+        <local:LoadSheetViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="titleDescriptionTemplate">
+                <TextCell Text="{Binding Title}" Detail="{Binding Description}" />
+            </DataTemplate>
+            <DataTemplate x:Key="weightStationHeaderTemplate">
+                <ViewCell>
+                    <StackLayout Margin="15,0">
+                        <Label Text="{Binding Title}" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="weightStationItemTemplate">
+                <ViewCell>
+                    <Grid Margin="15,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Entry Grid.Column="0" Text="{Binding Name}" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Column="1" Text="{Binding MassDisplay}" Keyboard="Numeric" VerticalOptions="CenterAndExpand" />
+                        <Picker Grid.Column="2" ItemsSource="{Binding MassDisplayUnits}" SelectedItem="{Binding MassDisplayUnit}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="fuelStationTemplate">
+                <ViewCell>
+                    <Grid Margin="15,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="0.75*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding Title}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
+                        <Slider Grid.Column="1" Maximum="1" Value="{Binding FuelFraction}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" />
+                        <Label Grid.Column="2" Text="{Binding FuelQuantity, StringFormat='{0:F1}'}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" />
+                        <Picker Grid.Column="3" ItemsSource="{Binding FuelDisplayUnits}" SelectedItem="{Binding FuelDisplayUnit}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="sectionHeaderTemplate">
+                <ViewCell>
+                    <StackLayout Margin="15,0">
+                        <Label Text="{Binding Title}" FontSize="Large" VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <local:LoadSheetDataTemplateSelector x:Key="loadSheetDataTemplateSelector"
+                                                 TitleDescriptionTemplate="{StaticResource titleDescriptionTemplate}"
+                                                 WeightStationHeaderTemplate="{StaticResource weightStationHeaderTemplate}"
+                                                 WeightStationItemTemplate="{StaticResource weightStationItemTemplate}"
+                                                 FuelStationTemplate="{StaticResource fuelStationTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ListView 
+            ItemTemplate="{StaticResource loadSheetDataTemplateSelector}"
+            ItemsSource="{Binding LoadSheetGroups}"
+            GroupHeaderTemplate="{StaticResource sectionHeaderTemplate}"
+            IsGroupingEnabled="True"
+            HasUnevenRows="True"
+            SelectionMode="None" />
+    </ContentPage.Content>
+</ContentPage>
