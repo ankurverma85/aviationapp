@@ -13,7 +13,7 @@
         public static bool operator >(Mass a, Mass b) => a.KiloGrams > b.KiloGrams;
         public double GetQuantity(MassUnits unit)
         {
-            switch(unit)
+            switch (unit)
             {
                 case MassUnits.g: return Grams;
                 case MassUnits.kg: return KiloGrams;
@@ -23,7 +23,7 @@
         }
         public void SetQuantity(double amount, MassUnits unit)
         {
-            switch(unit)
+            switch (unit)
             {
                 case MassUnits.g: Grams = amount; break;
                 case MassUnits.kg: KiloGrams = amount; break;

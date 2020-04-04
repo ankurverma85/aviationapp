@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AviationApp.Utilities.Units
+﻿namespace AviationApp.Utilities.Units
 {
     enum LengthUnits { m, mm, cm, km, sm, nm, ft, inch }
     class Length
