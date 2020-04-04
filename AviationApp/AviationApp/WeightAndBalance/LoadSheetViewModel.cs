@@ -1,8 +1,10 @@
-﻿using AviationApp.Utilities.Quantities;
-using AviationApp.Utilities.Units;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
+using AviationApp.Utilities.Quantities;
+using AviationApp.Utilities.Units;
+
 using Xamarin.Forms;
 
 namespace AviationApp.WeightAndBalance

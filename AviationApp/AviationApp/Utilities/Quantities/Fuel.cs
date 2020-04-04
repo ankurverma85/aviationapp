@@ -1,6 +1,7 @@
-﻿using AviationApp.Utilities.Units;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
+
+using AviationApp.Utilities.Units;
 
 namespace AviationApp.Utilities.Quantities
 {

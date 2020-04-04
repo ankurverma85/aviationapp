@@ -1,6 +1,7 @@
-﻿using AviationApp.Utilities.Quantities;
+﻿using System.Collections.Generic;
+
+using AviationApp.Utilities.Quantities;
 using AviationApp.Utilities.Units;
-using System.Collections.Generic;
 
 namespace AviationApp.WeightAndBalance
 {
