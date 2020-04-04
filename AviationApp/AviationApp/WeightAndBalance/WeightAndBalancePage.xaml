@@ -14,14 +14,25 @@
             <DataTemplate x:Key="titleDescriptionTemplate">
                 <TextCell Text="{Binding Title}" Detail="{Binding Description}" />
             </DataTemplate>
-            <DataTemplate x:Key="weightStationTemplate">
+            <DataTemplate x:Key="weightStationHeaderTemplate">
                 <ViewCell>
                     <StackLayout Margin="15,0">
                         <Label Text="{Binding Title}" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
-                        <Label Text="Item 1" />
-                        <Label Text="Item 2" />
-                        <Label Text="Item 3" />
                     </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="weightStationItemTemplate">
+                <ViewCell>
+                    <Grid Margin="15,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Entry Grid.Column="0" Text="{Binding Name}" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Column="1" Text="{Binding MassDisplay}" Keyboard="Numeric" VerticalOptions="CenterAndExpand" />
+                        <Picker Grid.Column="2" ItemsSource="{Binding MassDisplayUnits}" SelectedItem="{Binding MassDisplayUnit}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" />
+                    </Grid>
                 </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="fuelStationTemplate">
@@ -49,7 +60,8 @@
             </DataTemplate>
             <local:LoadSheetDataTemplateSelector x:Key="loadSheetDataTemplateSelector"
                                                  TitleDescriptionTemplate="{StaticResource titleDescriptionTemplate}"
-                                                 WeightStationTemplate="{StaticResource weightStationTemplate}"
+                                                 WeightStationHeaderTemplate="{StaticResource weightStationHeaderTemplate}"
+                                                 WeightStationItemTemplate="{StaticResource weightStationItemTemplate}"
                                                  FuelStationTemplate="{StaticResource fuelStationTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>

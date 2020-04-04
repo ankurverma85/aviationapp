@@ -1,10 +1,8 @@
 ﻿using AviationApp.Utilities.Quantities;
 using AviationApp.Utilities.Units;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using Xamarin.Forms;
 
 namespace AviationApp.WeightAndBalance
@@ -20,21 +18,26 @@ namespace AviationApp.WeightAndBalance
                 EmptyMass = new Mass { KiloGrams = 693.1 },
                 EmptyCG = new Length { Millimetre = 828 },
                 LoadStations = new List<LoadStation>
-            {
-                new LoadStation("Pilot & Passenger", new Length { Millimetre = 991 }, new Mass { KiloGrams = 500 }),
-                new LoadStation("Area 1 Baggage", new Length { Millimetre = 1626}, new Mass {Pounds=120}),
-                new LoadStation("Area 2 Baggage", new Length{Millimetre= 2134 }, new Mass{Pounds=50})
-            },
+                {
+                    new LoadStation("Pilot & Passenger", new Length { Millimetre = 991 }, new Mass { KiloGrams = 500 }),
+                    new LoadStation("Area 1 Baggage", new Length { Millimetre = 1626}, new Mass {Pounds=120}),
+                    new LoadStation("Area 2 Baggage", new Length{Millimetre= 2134 }, new Mass{Pounds=50})
+                },
                 FuelStations = new List<FuelStation>
-            {
-                new FuelStation("Main Tanks", new Length { Millimetre=1067}, new AvGasFuel {Volume = new Volume{USGallon=22.5 } })
-            }
+                {
+                    new FuelStation("Main Tanks", new Length { Millimetre=1067}, new AvGasFuel {Volume = new Volume{USGallon=22.5 } })
+                }
             };
+            var loadSheetCopy = LoadSheet;
+            loadSheetCopy.LoadStations[0].StationItems.Add(new StationItem { ItemName = "Pilot", Mass = new Mass { KiloGrams = 65 } });
+            loadSheetCopy.LoadStations[0].StationItems.Add(new StationItem { ItemName = "Passenger", Mass = new Mass { Pounds = 190 } });
+            LoadSheet = loadSheetCopy;
         }
         public ObservableCollection<LoadSheetGroup> LoadSheetGroups { get; set; } = new ObservableCollection<LoadSheetGroup>();
         public LoadSheet LoadSheet
         {
-            get => loadSheet; set
+            get => loadSheet;
+            set
             {
                 loadSheet = value;
                 LoadSheetGroups.Clear();
@@ -44,7 +47,11 @@ namespace AviationApp.WeightAndBalance
                 LoadSheetGroup weightStations = new LoadSheetGroup("Weight");
                 foreach (var weightStation in loadSheet.LoadStations)
                 {
-                    weightStations.Add(new LoadSheetWeightStation(weightStation.StationName, weightStation.StationArm.Millimetre, LengthUnits.mm));
+                    weightStations.Add(new LoadSheetWeightStationHeader(weightStation.StationName, weightStation.StationArm.Millimetre, LengthUnits.mm));
+                    foreach (var weightStationItem in weightStation.StationItems)
+                    {
+                        weightStations.Add(new LoadSheetWeightStationItem { Name = weightStationItem.ItemName, MassDisplayUnit = MassUnits.kg, MassDisplay = weightStationItem.Mass.KiloGrams }); ;
+                    }
                 }
                 LoadSheetGroup fuelStations = new LoadSheetGroup("Fuel");
                 foreach (var fuelStation in loadSheet.FuelStations)
@@ -61,13 +68,15 @@ namespace AviationApp.WeightAndBalance
     public class LoadSheetDataTemplateSelector : DataTemplateSelector
     {
         public DataTemplate TitleDescriptionTemplate { get; set; }
-        public DataTemplate WeightStationTemplate { get; set; }
+        public DataTemplate WeightStationHeaderTemplate { get; set; }
+        public DataTemplate WeightStationItemTemplate { get; set; }
         public DataTemplate FuelStationTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             if (item is LoadSheetTitleDescription) return TitleDescriptionTemplate;
-            else if (item is LoadSheetWeightStation) return WeightStationTemplate;
+            else if (item is LoadSheetWeightStationHeader) return WeightStationHeaderTemplate;
+            else if (item is LoadSheetWeightStationItem) return WeightStationItemTemplate;
             else if (item is LoadSheetFuelStation) return FuelStationTemplate;
             else throw new System.Exception();
         }
@@ -96,11 +105,39 @@ namespace AviationApp.WeightAndBalance
         public double ArmDisplay { get; set; }
         public List<LengthUnits> ArmDisplayUnits { get; } = new List<LengthUnits> { LengthUnits.mm, LengthUnits.cm, LengthUnits.inch }; // Should be readonly, don't know how to set
         public LengthUnits ArmDisplayUnit { get; set; }
-
     }
-    internal class LoadSheetWeightStation : LoadSheetStation
+    internal class LoadSheetWeightStationHeader : LoadSheetStation
     {
-        public LoadSheetWeightStation(string title, double arm_length, LengthUnits armunits) : base(title, arm_length, armunits) { }
+        public LoadSheetWeightStationHeader(string title, double arm_length, LengthUnits armunits) : base(title, arm_length, armunits) { }
+    }
+    internal class LoadSheetWeightStationItem : ILoadSheetRow, INotifyPropertyChanged
+    {
+        public string Name { get => name; set { name = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name))); } }
+        public double MassDisplay
+        {
+            get => mass.GetQuantity(MassDisplayUnit);
+            set
+            {
+                mass.SetQuantity(value, MassDisplayUnit);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MassDisplay)));
+            }
+        }
+        public MassUnits MassDisplayUnit
+        {
+            get => massDisplayUnit;
+            set
+            {
+                massDisplayUnit = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MassDisplayUnit)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MassDisplay)));
+            }
+        }
+        public List<MassUnits> MassDisplayUnits { get => new List<MassUnits> { MassUnits.kg, MassUnits.lb }; }
+        private string name = string.Empty;
+        private Mass mass = new Mass();
+        private MassUnits massDisplayUnit = MassUnits.kg;
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
     internal class LoadSheetFuelStation : LoadSheetStation, INotifyPropertyChanged
     {
