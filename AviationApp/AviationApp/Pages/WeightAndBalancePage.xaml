@@ -4,8 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="AviationApp.WeightAndBalance.WeightAndBalancePage"
-             xmlns:local="clr-namespace:AviationApp.WeightAndBalance">
+             x:Class="AviationApp.Pages.WeightAndBalancePage"
+             xmlns:local="clr-namespace:AviationApp.Pages">
     <ContentPage.BindingContext>
         <local:LoadSheetViewModel />
     </ContentPage.BindingContext>

@@ -7,7 +7,7 @@ using AviationApp.Utilities.Units;
 
 using Xamarin.Forms;
 
-namespace AviationApp.WeightAndBalance
+namespace AviationApp.Pages
 {
     class LoadSheetViewModel : BindableObject
     {

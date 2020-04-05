@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace AviationApp
 {
@@ -10,7 +8,7 @@ namespace AviationApp
         {
             InitializeComponent();
 
-            MainPage = new WeightAndBalance.WeightAndBalancePage();
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()
