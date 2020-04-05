@@ -2,7 +2,6 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:AviationApp.Pages"
-             xmlns:wnb="clr-namespace:AviationApp.WeightAndBalance"
              x:Class="AviationApp.AppShell">
     <TabBar>
         <Tab Title="Map">
@@ -12,7 +11,7 @@
             <ShellContent ContentTemplate="{DataTemplate pages:PlanningPage}" />
         </Tab>
         <Tab Title="Weight &amp; Balance">
-            <ShellContent ContentTemplate="{DataTemplate wnb:WeightAndBalancePage}" />
+            <ShellContent ContentTemplate="{DataTemplate pages:WeightAndBalancePage}" />
         </Tab>
         <Tab Title="Briefing">
             <ShellContent ContentTemplate="{DataTemplate pages:BriefingPage}" />

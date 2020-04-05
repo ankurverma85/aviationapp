@@ -3,7 +3,7 @@
 using AviationApp.Utilities.Quantities;
 using AviationApp.Utilities.Units;
 
-namespace AviationApp.WeightAndBalance
+namespace AviationApp.Pages
 {
     class LoadSheet
     {
