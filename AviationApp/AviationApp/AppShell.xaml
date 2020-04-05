@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:AviationApp.Pages"
+             xmlns:wnb="clr-namespace:AviationApp.WeightAndBalance"
+             x:Class="AviationApp.AppShell">
+    <TabBar>
+        <Tab Title="Map">
+            <ShellContent ContentTemplate="{DataTemplate pages:MapPage}" />
+        </Tab>
+        <Tab Title="Planning">
+            <ShellContent ContentTemplate="{DataTemplate pages:PlanningPage}" />
+        </Tab>
+        <Tab Title="Weight &amp; Balance">
+            <ShellContent ContentTemplate="{DataTemplate wnb:WeightAndBalancePage}" />
+        </Tab>
+        <Tab Title="Briefing">
+            <ShellContent ContentTemplate="{DataTemplate pages:BriefingPage}" />
+        </Tab>
+        <Tab Title="Flight Computer">
+            <ShellContent ContentTemplate="{DataTemplate pages:FlightComputerPage}" />
+        </Tab>
+        <Tab Title="Checklists">
+            <ShellContent ContentTemplate="{DataTemplate pages:ChecklistsPage}" />
+        </Tab>
+        <Tab Title="Scratchpad">
+            <ShellContent ContentTemplate="{DataTemplate pages:ScratchpadPage}" />
+        </Tab>
+        <Tab Title="Airport Information">
+            <ShellContent ContentTemplate="{DataTemplate pages:AirportInformationPage}" />
+        </Tab>
+        <Tab Title="Logbook">
+            <ShellContent ContentTemplate="{DataTemplate pages:LogbookPage}" />
+        </Tab>
+        <Tab Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}" />
+        </Tab>
+    </TabBar>
+</Shell>
