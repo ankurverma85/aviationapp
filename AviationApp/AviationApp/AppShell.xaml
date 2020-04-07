@@ -2,36 +2,67 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:AviationApp.Pages"
+             xmlns:fonts="clr-namespace:AviationApp.Assets.Fonts"
              x:Class="AviationApp.AppShell">
     <TabBar>
         <Tab Title="Map">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.Map}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:MapPage}" />
         </Tab>
         <Tab Title="Planning">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.Planning}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:PlanningPage}" />
         </Tab>
         <Tab Title="Weight &amp; Balance">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.WeightAndBalance}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:WeightAndBalancePage}" />
         </Tab>
         <Tab Title="Briefing">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.Briefing}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:BriefingPage}" />
         </Tab>
         <Tab Title="Flight Computer">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.FlightComputer}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:FlightComputerPage}" />
         </Tab>
         <Tab Title="Checklists">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.Checklists}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:ChecklistsPage}" />
         </Tab>
         <Tab Title="Scratchpad">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.Scratchpad}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:ScratchpadPage}" />
         </Tab>
         <Tab Title="Airport Information">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.AirportInformation}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:AirportInformationPage}" />
         </Tab>
         <Tab Title="Logbook">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.Logbook}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:LogbookPage}" />
         </Tab>
         <Tab Title="Settings">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialFonts" Glyph="{Static fonts:MaterialFontGlyphs.Settings}"  />
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}" />
         </Tab>
     </TabBar>
