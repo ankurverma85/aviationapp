@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Fonts\materialdesignicons-webfont.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Assets\Fonts\materialdesignicons-webfont.ttf" />
   </ItemGroup>
 
