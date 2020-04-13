@@ -20,7 +20,7 @@ namespace AviationApp.UnitTests.FAADataParser.Utils
             };
             foreach ((string, double) elem in dataList)
             {
-                double result = ParseLatitudeLongitude.TryParse(elem.Item1);
+                Assert.IsTrue(ParseLatitudeLongitude.TryParse(elem.Item1, out double result));
                 Assert.AreEqual(elem.Item2, result, 0.00000001);
             }
         }
@@ -35,7 +35,7 @@ namespace AviationApp.UnitTests.FAADataParser.Utils
             };
             foreach ((string, double) elem in dataList)
             {
-                double result = ParseLatitudeLongitude.TryParse(elem.Item1);
+                Assert.IsTrue(ParseLatitudeLongitude.TryParse(elem.Item1, out double result));
                 Assert.AreEqual(elem.Item2, result, 0.00000001);
             }
         }
