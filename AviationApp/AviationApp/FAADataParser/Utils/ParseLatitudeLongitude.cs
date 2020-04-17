@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace AviationApp.FAADataParser.Utils
 {
@@ -34,7 +33,7 @@ namespace AviationApp.FAADataParser.Utils
                 case "W": negative = true; break;
                 default: return false;
             }
-            latitude = (negative ? -1.0 : 1.0) * (degrees + (minutes/60.0) + (seconds/3600.0));
+            latitude = (negative ? -1.0 : 1.0) * (degrees + (minutes / 60.0) + (seconds / 3600.0));
             return true;
         }
         private static readonly Regex latlonRegex = new Regex(@"(?<Degrees>\d*)-(?<Minutes>\d*)-(?<Seconds>\d*\.\d*)(?<Hemisphere>[NSEW])\s*");

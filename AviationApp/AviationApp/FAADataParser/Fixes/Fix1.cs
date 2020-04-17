@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using AviationApp.FAADataParser.Utils;
 
 using SQLite;
@@ -44,7 +43,7 @@ namespace AviationApp.FAADataParser.Fixes
         public static bool TryParse(string recordString, out Fix1 fix1)
         {
             fix1 = new Fix1();
-            if(recordString.Length != LOGICAL_RECORD_LENGTH)
+            if (recordString.Length != LOGICAL_RECORD_LENGTH)
             {
                 return false;
             }
