@@ -22,7 +22,8 @@ namespace AviationApp.FAADataParser.Fixes
     {
         [PrimaryKey, AutoIncrement]
         public ulong RecordId { get; set; }
-        public DateTime Cycle { get; set; }
+        // Foreign key
+        public int Cycle { get; set; }
         [MaxLength(FIXID_LEN)]
         public string FixID { get; set; }
         [MaxLength(STATE_NAME_LEN)]
