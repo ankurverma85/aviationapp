@@ -22,5 +22,18 @@ namespace AviationApp
         protected override void OnResume()
         {
         }
+
+        public static Database.Database SQLiteDatabase
+        {
+            get
+            {
+                if (sqliteDatabase == null)
+                {
+                    sqliteDatabase = new Database.Database();
+                }
+                return sqliteDatabase;
+            }
+        }
+        private static Database.Database sqliteDatabase;
     }
 }
