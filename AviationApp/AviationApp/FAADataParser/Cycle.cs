@@ -12,12 +12,20 @@ namespace AviationApp.FAADataParser
         public int CycleID { get; set; }
         public DateTime StartDate { get; set; }
         public bool FixesParsed { get; set; }
-        public static (bool found, DateTime cycle, bool fiftySixDay)? GetCurrentCycle()
+        public static (bool found, DateTime cycle, bool fiftySixDay) GetCurrentCycle()
         {
             DateTime now = DateTime.UtcNow.Date;
             IOrderedEnumerable<(DateTime, bool)> lowerCycles = releaseDates.Where(n => n.Item1 <= now).OrderBy(n => (now - n.Item1));
             (DateTime cycle, bool fiftySixDay) = lowerCycles.FirstOrDefault();
             bool found = lowerCycles.Count() > 0;
+            return (found, cycle, fiftySixDay);
+        }
+        public static (bool found, DateTime cycle, bool fiftySixDay) GetNextCycle()
+        {
+            DateTime now = DateTime.UtcNow.Date;
+            IOrderedEnumerable<(DateTime, bool)> higherCycles = releaseDates.Where(i => i.Item1 > now).OrderBy(i => (i.Item1 - now));
+            (DateTime cycle, bool fiftySixDay) = higherCycles.FirstOrDefault();
+            bool found = higherCycles.Count() > 0;
             return (found, cycle, fiftySixDay);
         }
         private static readonly List<(DateTime, bool)> releaseDates = new List<(DateTime, bool)>

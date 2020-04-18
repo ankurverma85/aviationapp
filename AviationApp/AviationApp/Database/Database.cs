@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace AviationApp.Database
     public class Database
     {
         public Database() => InitializeAsync().SafeFireAndForget(false);
-        static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() => new SQLiteAsyncConnection(DatabasePath, openFlags));
-        static SQLiteAsyncConnection SQLiteDatabase => lazyInitializer.Value;
-        async Task InitializeAsync()
+        private static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() => new SQLiteAsyncConnection(DatabasePath, openFlags));
+        private static SQLiteAsyncConnection SQLiteDatabase => lazyInitializer.Value;
+        private async Task InitializeAsync()
         {
             if (!initialized)
             {
@@ -27,11 +28,31 @@ namespace AviationApp.Database
                 {
                     _ = await SQLiteDatabase.CreateTableAsync(typeof(Fix1)).ConfigureAwait(false);
                 }
+                await CleanUpOldCycles();
 
                 initialized = true;
             }
         }
-        static bool initialized = false;
+
+        private async Task CleanUpOldCycles()
+        {
+            (bool found, DateTime currentCycle, bool fiftySixDayCycle) = Cycle.GetCurrentCycle();
+            if (found)
+            {
+                AsyncTableQuery<Cycle> cycleQuery = SQLiteDatabase.Table<Cycle>().Where(i => i.StartDate < currentCycle);
+                List<Cycle> oldCycles = await cycleQuery.ToListAsync();
+                foreach (Cycle cycle in oldCycles)
+                {
+                    await new Task(() =>
+                    {
+                        _ = SQLiteDatabase.ExecuteAsync("delete * from " + nameof(Fix1) + " where " + nameof(Fix1.Cycle) + " = ?", cycle.CycleID);
+                        _ = SQLiteDatabase.DeleteAsync<Cycle>(cycle.CycleID);
+                    });
+                }
+            }
+        }
+
+        private static bool initialized = false;
 
         private static string DatabasePath
         {
