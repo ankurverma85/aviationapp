@@ -33,15 +33,11 @@ namespace AviationApp.FAADataParser.Aff
             aff1.ArtccName = recordString.Substring(ARTCC_NAME_START, ARTCC_NAME_LEN).Trim();
             aff1.SiteLocation = recordString.Substring(SITE_LOCATION_START, SITE_LOCATION_LEN).Trim();
             aff1.AltName = recordString.Substring(ALT_NAME_START, ALT_NAME_LEN).Trim();
-            switch (recordString.Substring(FACILITY_TYPE_START, FACILITY_TYPE_LEN).Trim())
+            if (!FacilityTypeParser.TryParse(recordString.Substring(FACILITY_TYPE_START, FACILITY_TYPE_LEN).Trim(), out FacilityType? facilityType))
             {
-                case "ARSR": aff1.FacilityType = FacilityType.AirRouteSurveillanceRadar; break;
-                case "ARTCC": aff1.FacilityType = FacilityType.AirRouteTrafficControlCentre; break;
-                case "CERAP": aff1.FacilityType = FacilityType.CentreRadarApproachControlFacility; break;
-                case "RCAG": aff1.FacilityType = FacilityType.RemoteCommunicationsAirGround; break;
-                case "SECRA": aff1.FacilityType = FacilityType.SecondaryRadar; break;
-                default: return false;
+                return false;
             }
+            aff1.FacilityType = (FacilityType)facilityType;
             if (!DateTime.TryParseExact(recordString.Substring(EFFECTIVE_DATE_START, EFFECTIVE_DATE_LEN).Trim(), "mm/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime effectiveDate))
             {
                 return false;
