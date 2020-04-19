@@ -16,7 +16,8 @@ namespace AviationApp.UnitTests.FAADataParser.Utils
             {
                 (@"34-36-21.290N ", 34.60591389),
                 (@"47-38-18.000N ", 47.63833333),
-                (@"25-57-38.954S ", -25.96082056)
+                (@"25-57-38.954S ", -25.96082056),
+                (@"140811.070N", 39.11418611)
             };
             foreach ((string, double) elem in dataList)
             {
@@ -31,7 +32,8 @@ namespace AviationApp.UnitTests.FAADataParser.Utils
             {
                 (@"134-36-21.290E", 134.60591389),
                 (@"047-38-18.000E", 47.63833333),
-                (@"125-57-38.954W", -125.96082056)
+                (@"125-57-38.954W", -125.96082056),
+                (@"271674.660W", -75.46518333)
             };
             foreach ((string, double) elem in dataList)
             {

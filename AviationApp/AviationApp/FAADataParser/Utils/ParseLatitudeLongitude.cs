@@ -4,38 +4,62 @@ namespace AviationApp.FAADataParser.Utils
 {
     public static class ParseLatitudeLongitude
     {
-        public static bool TryParse(string latitudeString, out double latitude)
+        public static bool TryParse(string latLongString, out double latLong)
         {
-            latitude = 0.0;
-            Match match = latlonRegex.Match(latitudeString);
-            if (!match.Success)
+            latLong = 0.0;
+            Match matchLatitude = latitudeDegMinSecRegex.Match(latLongString);
+            Match matchLongitude = longitudeDegMinSecRegex.Match(latLongString);
+            Match matchAllSec = allSecRegex.Match(latLongString);
+            if (matchLatitude.Success || matchLongitude.Success)
             {
-                return false;
+                Match match = matchLatitude.Success ? matchLatitude : matchLongitude;
+                if (!int.TryParse(match.Groups["Degrees"].Value, out int degrees))
+                {
+                    return false;
+                }
+                if (!int.TryParse(match.Groups["Minutes"].Value, out int minutes))
+                {
+                    return false;
+                }
+                if (!double.TryParse(match.Groups["Seconds"].Value, out double seconds))
+                {
+                    return false;
+                }
+                bool negative;
+                switch (match.Groups["Hemisphere"].Value)
+                {
+                    case "N": negative = false; break;
+                    case "S": negative = true; break;
+                    case "E": negative = false; break;
+                    case "W": negative = true; break;
+                    default: return false;
+                }
+                latLong = (negative ? -1.0 : 1.0) * (degrees + (minutes / 60.0) + (seconds / 3600.0));
+                return true;
             }
-            if (!int.TryParse(match.Groups["Degrees"].Value, out int degrees))
+            else if (matchAllSec.Success)
             {
-                return false;
+                Match match = matchAllSec;
+                if (!double.TryParse(match.Groups["Seconds"].Value, out double seconds))
+                {
+                    return false;
+                }
+                bool negative;
+                switch (match.Groups["Hemisphere"].Value)
+                {
+                    case "N": negative = false; break;
+                    case "S": negative = true; break;
+                    case "E": negative = false; break;
+                    case "W": negative = true; break;
+                    default: return false;
+                }
+                latLong = (negative ? -1.0 : 1.0) * seconds / 3600.0;
+                return true;
             }
-            if (!int.TryParse(match.Groups["Minutes"].Value, out int minutes))
-            {
-                return false;
-            }
-            if (!double.TryParse(match.Groups["Seconds"].Value, out double seconds))
-            {
-                return false;
-            }
-            bool negative;
-            switch (match.Groups["Hemisphere"].Value)
-            {
-                case "N": negative = false; break;
-                case "S": negative = true; break;
-                case "E": negative = false; break;
-                case "W": negative = true; break;
-                default: return false;
-            }
-            latitude = (negative ? -1.0 : 1.0) * (degrees + (minutes / 60.0) + (seconds / 3600.0));
-            return true;
+            return false;
         }
-        private static readonly Regex latlonRegex = new Regex(@"(?<Degrees>\d*)-(?<Minutes>\d*)-(?<Seconds>\d*\.\d*)(?<Hemisphere>[NSEW])\s*");
+        private static readonly Regex latitudeDegMinSecRegex = new Regex(@"(?<Degrees>\d{2})-(?<Minutes>\d{2})-(?<Seconds>\d{2}\.\d{3})(?<Hemisphere>[NS])");
+        private static readonly Regex longitudeDegMinSecRegex = new Regex(@"(?<Degrees>\d{3})-(?<Minutes>\d{2})-(?<Seconds>\d{2}\.\d{3})(?<Hemisphere>[EW])");
+        private static readonly Regex allSecRegex = new Regex(@"(?<Seconds>\d{6}\.\d{3})(?<Hemisphere>[NSEW])");
     }
 }
