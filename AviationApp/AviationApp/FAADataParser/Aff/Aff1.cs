@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 using AviationApp.FAADataParser.Utils;
 
 namespace AviationApp.FAADataParser.Aff
