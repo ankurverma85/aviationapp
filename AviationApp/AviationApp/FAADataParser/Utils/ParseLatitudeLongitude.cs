@@ -58,8 +58,8 @@ namespace AviationApp.FAADataParser.Utils
             }
             return false;
         }
-        private static readonly Regex latitudeDegMinSecRegex = new Regex(@"(?<Degrees>\d{2})-(?<Minutes>\d{2})-(?<Seconds>\d{2}\.\d{3})(?<Hemisphere>[NS])");
-        private static readonly Regex longitudeDegMinSecRegex = new Regex(@"(?<Degrees>\d{3})-(?<Minutes>\d{2})-(?<Seconds>\d{2}\.\d{3})(?<Hemisphere>[EW])");
-        private static readonly Regex allSecRegex = new Regex(@"(?<Seconds>\d{6}\.\d{3})(?<Hemisphere>[NSEW])");
+        private static readonly Regex latitudeDegMinSecRegex = new Regex(@"\b(?<Degrees>\d{2})-(?<Minutes>\d{2})-(?<Seconds>\d{2}\.\d{3})(?<Hemisphere>[NS])\b");
+        private static readonly Regex longitudeDegMinSecRegex = new Regex(@"\b(?<Degrees>\d{3})-(?<Minutes>\d{2})-(?<Seconds>\d{2}\.\d{3})(?<Hemisphere>[EW])\b");
+        private static readonly Regex allSecRegex = new Regex(@"\b(?<Seconds>\d{6}\.\d{3})(?<Hemisphere>[NSEW])\b");
     }
 }
