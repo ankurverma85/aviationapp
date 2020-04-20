@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AviationApp.FAADataParser.Utils;
 
 namespace AviationApp.FAADataParser.Aff
 {
@@ -16,6 +14,14 @@ namespace AviationApp.FAADataParser.Aff
         public AltitudeSector AltitudeSector { get; set; }
         public FrequencySpecialUsage FrequencySpecialUsage { get; set; }
         public bool RCAGFrequencyCharted { get; set; }
+        public bool AirportInformationAvailable { get; set; }
+        public string AirportIdent { get; set; }
+        public string AirportState { get; set; }
+        public string AirportStatePOCode { get; set; }
+        public string AirportCity { get; set; }
+        public string AirportName { get; set; }
+        public double AirportLatitude { get; set; }
+        public double AirportLongitude { get; set; }
         public static bool TryParse(string recordString, out Aff3 aff3)
         {
             aff3 = new Aff3();
@@ -62,6 +68,27 @@ namespace AviationApp.FAADataParser.Aff
                 case "N": aff3.RCAGFrequencyCharted = false; break;
                 default: return false;
             }
+            if (recordString.Substring(AIRPORT_LOCATION_IDENTIFIER_START).Trim() == "")
+            {
+                aff3.AirportInformationAvailable = false;
+                return true;
+            }
+            aff3.AirportIdent = recordString.Substring(AIRPORT_LOCATION_IDENTIFIER_START, AIRPORT_LOCATION_IDENTIFIER_LEN).Trim();
+            aff3.AirportState = recordString.Substring(AIRPORT_STATE_NAME_START, AIRPORT_STATE_NAME_LEN).Trim();
+            aff3.AirportStatePOCode = recordString.Substring(AIRPORT_STATE_PO_CODE_START, AIRPORT_STATE_PO_CODE_LEN).Trim();
+            aff3.AirportCity = recordString.Substring(AIRPORT_CITY_NAME_START, AIRPORT_CITY_NAME_LEN).Trim();
+            aff3.AirportName = recordString.Substring(AIRPORT_NAME_START, AIRPORT_NAME_LEN).Trim();
+            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(AIRPORT_LATITUDE_START, AIRPORT_LATITUDE_LEN).Trim(), out double latitude))
+            {
+                return false;
+            }
+            aff3.AirportLatitude = latitude;
+            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(AIRPORT_LONGITUDE_START, AIRPORT_LONGITUDE_LEN).Trim(), out double longitude))
+            {
+                return false;
+            }
+            aff3.AirportLatitude = longitude;
+
             return true;
         }
         private const int RECORD_LEN = 254;
