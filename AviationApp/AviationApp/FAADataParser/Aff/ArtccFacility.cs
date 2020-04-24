@@ -14,8 +14,8 @@ namespace AviationApp.FAADataParser.Aff
         public DateTime EffectiveDate { get; set; }
         public string StateName { get; set; }
         public string StateCode { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public decimal? Latitude { get; set; } = null;
+        public decimal? Longitude { get; set; } = null;
         public string IcaoId { get; set; }
         public List<(int number, string remark)> FacilityRemarks { get; set; } = new List<(int number, string remark)>();
         public List<ArtccFrequencyInformation> Frequencies { get; set; } = new List<ArtccFrequencyInformation>();

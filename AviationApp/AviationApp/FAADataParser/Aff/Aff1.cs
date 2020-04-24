@@ -4,7 +4,7 @@ using AviationApp.FAADataParser.Utils;
 
 namespace AviationApp.FAADataParser.Aff
 {
-    class Aff1
+    public class Aff1
     {
         public string ArtccIdent { get; set; }
         public string ArtccName { get; set; }
@@ -14,8 +14,8 @@ namespace AviationApp.FAADataParser.Aff
         public DateTime EffectiveDate { get; set; }
         public string StateName { get; set; }
         public string StateCode { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public decimal? Latitude { get; set; } = null;
+        public decimal? Longitude { get; set; } = null;
         public string IcaoId { get; set; }
 
         public static bool TryParse(string recordString, out Aff1 aff1)
@@ -38,23 +38,34 @@ namespace AviationApp.FAADataParser.Aff
                 return false;
             }
             aff1.FacilityType = (FacilityType)facilityType;
-            if (!DateTime.TryParseExact(recordString.Substring(EFFECTIVE_DATE_START, EFFECTIVE_DATE_LEN).Trim(), "mm/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime effectiveDate))
+            if (!DateTime.TryParseExact(recordString.Substring(EFFECTIVE_DATE_START, EFFECTIVE_DATE_LEN).Trim(), "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime effectiveDate))
             {
                 return false;
             }
             aff1.EffectiveDate = effectiveDate;
             aff1.StateName = recordString.Substring(SITE_STATE_NAME_START, SITE_STATE_NAME_LEN).Trim();
             aff1.StateCode = recordString.Substring(SITE_STATE_PO_CODE_START, SITE_STATE_PO_CODE_LEN).Trim();
-            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(SITE_LATITUDE_START, SITE_LATITUDE_LEN).Trim(), out decimal latitude))
+            if (aff1.FacilityType == FacilityType.AirRouteSurveillanceRadar)
             {
-                return false;
+                if (recordString.Substring(SITE_LATITUDE_START, SITE_LATITUDE_LEN).Trim() != ""
+                    || recordString.Substring(SITE_LONGITUDE_START, SITE_LONGITUDE_LEN).Trim() != "")
+                {
+                    return false;
+                }
             }
-            aff1.Latitude = latitude;
-            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(SITE_LONGITUDE_START, SITE_LONGITUDE_LEN).Trim(), out decimal longitude))
+            else
             {
-                return false;
+                if (!ParseLatitudeLongitude.TryParse(recordString.Substring(SITE_LATITUDE_START, SITE_LATITUDE_LEN).Trim(), out decimal latitude))
+                {
+                    return false;
+                }
+                aff1.Latitude = latitude;
+                if (!ParseLatitudeLongitude.TryParse(recordString.Substring(SITE_LONGITUDE_START, SITE_LONGITUDE_LEN).Trim(), out decimal longitude))
+                {
+                    return false;
+                }
+                aff1.Longitude = longitude;
             }
-            aff1.Longitude = longitude;
             aff1.IcaoId = recordString.Substring(ICAO_ARTCC_ID_START, ICAO_ARTCC_ID_LEN).Trim();
 
             return true;
