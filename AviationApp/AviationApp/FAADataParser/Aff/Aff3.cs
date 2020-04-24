@@ -93,7 +93,7 @@ namespace AviationApp.FAADataParser.Aff
             {
                 return false;
             }
-            aff3.AirportLatitude = longitude;
+            aff3.AirportLongitude = longitude;
 
             return true;
         }
