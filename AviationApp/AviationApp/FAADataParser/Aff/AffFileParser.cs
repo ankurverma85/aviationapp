@@ -78,7 +78,6 @@ namespace AviationApp.FAADataParser.Aff
                                 AltitudeSector = aff3.AltitudeSector,
                                 FrequencySpecialUsage = aff3.FrequencySpecialUsage,
                                 RCAGFrequencyCharted = aff3.RCAGFrequencyCharted,
-                                AirportInformationAvailable = aff3.AirportInformationAvailable,
                                 AirportIdent = aff3.AirportIdent,
                                 AirportState = aff3.AirportState,
                                 AirportStatePOCode = aff3.AirportStatePOCode,

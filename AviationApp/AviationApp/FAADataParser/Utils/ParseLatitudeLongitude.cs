@@ -4,24 +4,24 @@ namespace AviationApp.FAADataParser.Utils
 {
     public static class ParseLatitudeLongitude
     {
-        public static bool TryParse(string latLongString, out double latLong)
+        public static bool TryParse(string latLongString, out decimal latLong)
         {
-            latLong = 0.0;
+            latLong = 0.0m;
             Match matchLatitude = latitudeDegMinSecRegex.Match(latLongString);
             Match matchLongitude = longitudeDegMinSecRegex.Match(latLongString);
             Match matchAllSec = allSecRegex.Match(latLongString);
             if (matchLatitude.Success || matchLongitude.Success)
             {
                 Match match = matchLatitude.Success ? matchLatitude : matchLongitude;
-                if (!int.TryParse(match.Groups["Degrees"].Value, out int degrees))
+                if (!decimal.TryParse(match.Groups["Degrees"].Value, out decimal degrees))
                 {
                     return false;
                 }
-                if (!int.TryParse(match.Groups["Minutes"].Value, out int minutes))
+                if (!decimal.TryParse(match.Groups["Minutes"].Value, out decimal minutes))
                 {
                     return false;
                 }
-                if (!double.TryParse(match.Groups["Seconds"].Value, out double seconds))
+                if (!decimal.TryParse(match.Groups["Seconds"].Value, out decimal seconds))
                 {
                     return false;
                 }
@@ -34,13 +34,13 @@ namespace AviationApp.FAADataParser.Utils
                     case "W": negative = true; break;
                     default: return false;
                 }
-                latLong = (negative ? -1.0 : 1.0) * (degrees + (minutes / 60.0) + (seconds / 3600.0));
+                latLong = (negative ? -1.0m : 1.0m) * ((degrees * 3600m) + (minutes * 60m) + seconds);
                 return true;
             }
             else if (matchAllSec.Success)
             {
                 Match match = matchAllSec;
-                if (!double.TryParse(match.Groups["Seconds"].Value, out double seconds))
+                if (!decimal.TryParse(match.Groups["Seconds"].Value, out decimal seconds))
                 {
                     return false;
                 }
@@ -53,7 +53,7 @@ namespace AviationApp.FAADataParser.Utils
                     case "W": negative = true; break;
                     default: return false;
                 }
-                latLong = (negative ? -1.0 : 1.0) * seconds / 3600.0;
+                latLong = (negative ? -1.0m : 1.0m) * seconds;
                 return true;
             }
             return false;

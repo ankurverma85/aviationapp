@@ -9,15 +9,14 @@ namespace AviationApp.FAADataParser.Aff
         public decimal Frequency { get; set; }
         public AltitudeSector AltitudeSector { get; set; }
         public FrequencySpecialUsage FrequencySpecialUsage { get; set; }
-        public bool RCAGFrequencyCharted { get; set; }
-        public bool AirportInformationAvailable { get; set; }
-        public string AirportIdent { get; set; }
-        public string AirportState { get; set; }
-        public string AirportStatePOCode { get; set; }
-        public string AirportCity { get; set; }
-        public string AirportName { get; set; }
-        public double AirportLatitude { get; set; }
-        public double AirportLongitude { get; set; }
+        public bool? RCAGFrequencyCharted { get; set; } = null;
+        public string AirportIdent { get; set; } = null;
+        public string AirportState { get; set; } = null;
+        public string AirportStatePOCode { get; set; } = null;
+        public string AirportCity { get; set; } = null;
+        public string AirportName { get; set; } = null;
+        public decimal? AirportLatitude { get; set; } = null;
+        public decimal? AirportLongitude { get; set; } = null;
         public List<(int number, string remark)> Remarks { get; set; } = new List<(int number, string remark)>();
     }
 }

@@ -12,33 +12,33 @@ namespace AviationApp.UnitTests.FAADataParser.Utils
         [TestMethod]
         public void GoodLatitudeParsingTests()
         {
-            List<(string, double)> dataList = new List<(string, double)>
+            List<(string, decimal)> dataList = new List<(string, decimal)>
             {
-                (@"34-36-21.290N ", 34.60591389),
-                (@"47-38-18.000N ", 47.63833333),
-                (@"25-57-38.954S ", -25.96082056),
-                (@"140811.070N", 39.11418611)
+                (@"34-36-21.290N ", 124581.290m),
+                (@"47-38-18.000N ", 171498.000m),
+                (@"25-57-38.954S ", -93458.954m),
+                (@"140811.070N", 140811.070m)
             };
-            foreach ((string, double) elem in dataList)
+            foreach ((string, decimal) elem in dataList)
             {
-                Assert.IsTrue(ParseLatitudeLongitude.TryParse(elem.Item1, out double result));
-                Assert.AreEqual(elem.Item2, result, 0.00000001);
+                Assert.IsTrue(ParseLatitudeLongitude.TryParse(elem.Item1, out decimal result));
+                Assert.AreEqual(elem.Item2, result);
             }
         }
         [TestMethod]
         public void GoodLongitudeParsingTests()
         {
-            List<(string, double)> dataList = new List<(string, double)>
+            List<(string, decimal)> dataList = new List<(string, decimal)>
             {
-                (@"134-36-21.290E", 134.60591389),
-                (@"047-38-18.000E", 47.63833333),
-                (@"125-57-38.954W", -125.96082056),
-                (@"271674.660W", -75.46518333)
+                (@"134-36-21.290E", 484581.290m),
+                (@"047-38-18.000E", 171498.000m),
+                (@"125-57-38.954W", -453458.954m),
+                (@"271674.660W", -271674.660m)
             };
-            foreach ((string, double) elem in dataList)
+            foreach ((string, decimal) elem in dataList)
             {
-                Assert.IsTrue(ParseLatitudeLongitude.TryParse(elem.Item1, out double result));
-                Assert.AreEqual(elem.Item2, result, 0.00000001);
+                Assert.IsTrue(ParseLatitudeLongitude.TryParse(elem.Item1, out decimal result));
+                Assert.AreEqual(elem.Item2, result);
             }
         }
     }

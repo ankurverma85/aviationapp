@@ -20,8 +20,8 @@ namespace AviationApp.UnitTests.FAADataParser.Fixes
             Assert.AreEqual("AARTA", fix.FixID);
             Assert.AreEqual("ALABAMA", fix.State);
             Assert.AreEqual("K7", fix.ICAORegionCode);
-            Assert.AreEqual(34.60591389, fix.Latitude, 0.00000001);
-            Assert.AreEqual(-87.27354167, fix.Longitude, 0.00000001);
+            Assert.AreEqual(124581.290m, fix.Latitude);
+            Assert.AreEqual(-314184.750m, fix.Longitude);
             Assert.AreEqual(FixType.Civilian, fix.FixType);
             Assert.AreEqual(FixUse.Waypoint, fix.FixUse);
             Assert.AreEqual("AARTA", fix.NASIdentifier);

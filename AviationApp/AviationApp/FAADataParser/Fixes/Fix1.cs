@@ -29,8 +29,8 @@ namespace AviationApp.FAADataParser.Fixes
         public string State { get; set; }
         [MaxLength(ICAO_CODE_LEN)]
         public string ICAORegionCode { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
         public FixType FixType { get; set; }
         public FixUse FixUse { get; set; }
         [MaxLength(5)]
@@ -54,12 +54,12 @@ namespace AviationApp.FAADataParser.Fixes
             fix1.FixID = recordString.Substring(FIXID_START, FIXID_LEN).Trim();
             fix1.State = recordString.Substring(STATE_NAME_START, STATE_NAME_LEN).Trim();
             fix1.ICAORegionCode = recordString.Substring(ICAO_CODE_START, ICAO_CODE_LEN).Trim();
-            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(LATITUDE_START, LAT_LON_LEN).Trim(), out double latitude))
+            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(LATITUDE_START, LAT_LON_LEN).Trim(), out decimal latitude))
             {
                 return false;
             }
             fix1.Latitude = latitude;
-            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(LONGITUDE_START, LAT_LON_LEN).Trim(), out double longitude))
+            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(LONGITUDE_START, LAT_LON_LEN).Trim(), out decimal longitude))
             {
                 return false;
             }

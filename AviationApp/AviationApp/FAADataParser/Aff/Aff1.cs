@@ -14,8 +14,8 @@ namespace AviationApp.FAADataParser.Aff
         public DateTime EffectiveDate { get; set; }
         public string StateName { get; set; }
         public string StateCode { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
         public string IcaoId { get; set; }
 
         public static bool TryParse(string recordString, out Aff1 aff1)
@@ -45,12 +45,12 @@ namespace AviationApp.FAADataParser.Aff
             aff1.EffectiveDate = effectiveDate;
             aff1.StateName = recordString.Substring(SITE_STATE_NAME_START, SITE_STATE_NAME_LEN).Trim();
             aff1.StateCode = recordString.Substring(SITE_STATE_PO_CODE_START, SITE_STATE_PO_CODE_LEN).Trim();
-            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(SITE_LATITUDE_START, SITE_LATITUDE_LEN).Trim(), out double latitude))
+            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(SITE_LATITUDE_START, SITE_LATITUDE_LEN).Trim(), out decimal latitude))
             {
                 return false;
             }
             aff1.Latitude = latitude;
-            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(SITE_LONGITUDE_START, SITE_LONGITUDE_LEN).Trim(), out double longitude))
+            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(SITE_LONGITUDE_START, SITE_LONGITUDE_LEN).Trim(), out decimal longitude))
             {
                 return false;
             }

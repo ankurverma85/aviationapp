@@ -5,7 +5,7 @@ namespace AviationApp.FAADataParser.Aff
     public enum AltitudeSector { Low, High, LowHigh, UltraHigh };
     public enum FrequencySpecialUsage { None, ApproachControl, Discrete, DoNotPublish, Oceanic };
 
-    class Aff3
+    public class Aff3
     {
         public string ArtccIdent { get; set; }
         public string SiteLocation { get; set; }
@@ -13,15 +13,14 @@ namespace AviationApp.FAADataParser.Aff
         public decimal Frequency { get; set; }
         public AltitudeSector AltitudeSector { get; set; }
         public FrequencySpecialUsage FrequencySpecialUsage { get; set; }
-        public bool RCAGFrequencyCharted { get; set; }
-        public bool AirportInformationAvailable { get; set; }
-        public string AirportIdent { get; set; }
-        public string AirportState { get; set; }
-        public string AirportStatePOCode { get; set; }
-        public string AirportCity { get; set; }
-        public string AirportName { get; set; }
-        public double AirportLatitude { get; set; }
-        public double AirportLongitude { get; set; }
+        public bool? RCAGFrequencyCharted { get; set; } = null;
+        public string AirportIdent { get; set; } = null;
+        public string AirportState { get; set; } = null;
+        public string AirportStatePOCode { get; set; } = null;
+        public string AirportCity { get; set; } = null;
+        public string AirportName { get; set; } = null;
+        public decimal? AirportLatitude { get; set; } = null;
+        public decimal? AirportLongitude { get; set; } = null;
         public static bool TryParse(string recordString, out Aff3 aff3)
         {
             aff3 = new Aff3();
@@ -62,15 +61,22 @@ namespace AviationApp.FAADataParser.Aff
                 case "OCEANIC": aff3.FrequencySpecialUsage = FrequencySpecialUsage.Oceanic; break;
                 default: return false;
             }
-            switch (recordString.Substring(RCAG_FREQUENCY_CHARTED_START, RCAG_FREQUENCY_CHARTED_LEN).Trim())
+            string RCAGFrequencyCharted = recordString.Substring(RCAG_FREQUENCY_CHARTED_START, RCAG_FREQUENCY_CHARTED_LEN).Trim();
+            if (facilityType == FacilityType.RemoteCommunicationsAirGround)
             {
-                case "Y": aff3.RCAGFrequencyCharted = true; break;
-                case "N": aff3.RCAGFrequencyCharted = false; break;
-                default: return false;
+                switch (RCAGFrequencyCharted)
+                {
+                    case "Y": aff3.RCAGFrequencyCharted = true; break;
+                    case "N": aff3.RCAGFrequencyCharted = false; break;
+                    default: return false;
+                }
+            }
+            else if (RCAGFrequencyCharted != "")
+            {
+                return false;
             }
             if (recordString.Substring(AIRPORT_LOCATION_IDENTIFIER_START).Trim() == "")
             {
-                aff3.AirportInformationAvailable = false;
                 return true;
             }
             aff3.AirportIdent = recordString.Substring(AIRPORT_LOCATION_IDENTIFIER_START, AIRPORT_LOCATION_IDENTIFIER_LEN).Trim();
@@ -78,12 +84,12 @@ namespace AviationApp.FAADataParser.Aff
             aff3.AirportStatePOCode = recordString.Substring(AIRPORT_STATE_PO_CODE_START, AIRPORT_STATE_PO_CODE_LEN).Trim();
             aff3.AirportCity = recordString.Substring(AIRPORT_CITY_NAME_START, AIRPORT_CITY_NAME_LEN).Trim();
             aff3.AirportName = recordString.Substring(AIRPORT_NAME_START, AIRPORT_NAME_LEN).Trim();
-            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(AIRPORT_LATITUDE_START, AIRPORT_LATITUDE_LEN).Trim(), out double latitude))
+            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(AIRPORT_LATITUDE_START, AIRPORT_LATITUDE_LEN).Trim(), out decimal latitude))
             {
                 return false;
             }
             aff3.AirportLatitude = latitude;
-            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(AIRPORT_LONGITUDE_START, AIRPORT_LONGITUDE_LEN).Trim(), out double longitude))
+            if (!ParseLatitudeLongitude.TryParse(recordString.Substring(AIRPORT_LONGITUDE_START, AIRPORT_LONGITUDE_LEN).Trim(), out decimal longitude))
             {
                 return false;
             }
