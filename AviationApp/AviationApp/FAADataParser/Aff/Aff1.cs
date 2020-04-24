@@ -45,7 +45,8 @@ namespace AviationApp.FAADataParser.Aff
             aff1.EffectiveDate = effectiveDate;
             aff1.StateName = recordString.Substring(SITE_STATE_NAME_START, SITE_STATE_NAME_LEN).Trim();
             aff1.StateCode = recordString.Substring(SITE_STATE_PO_CODE_START, SITE_STATE_PO_CODE_LEN).Trim();
-            if (aff1.FacilityType == FacilityType.AirRouteSurveillanceRadar)
+            if (aff1.FacilityType == FacilityType.AirRouteSurveillanceRadar
+                || aff1.FacilityType == FacilityType.SecondaryRadar)
             {
                 if (recordString.Substring(SITE_LATITUDE_START, SITE_LATITUDE_LEN).Trim() != ""
                     || recordString.Substring(SITE_LONGITUDE_START, SITE_LONGITUDE_LEN).Trim() != "")
