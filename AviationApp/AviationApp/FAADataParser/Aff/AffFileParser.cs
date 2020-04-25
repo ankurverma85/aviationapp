@@ -102,9 +102,9 @@ namespace AviationApp.FAADataParser.Aff
                             IEnumerable<int> frequencyQuery = from freq in facility.FrequencyRemarks
                                                               where freq.frequency == aff4.Frequency
                                                               select freq.number;
-                            foreach(int num in frequencyQuery)
+                            foreach (int num in frequencyQuery)
                             {
-                                if(aff4.RemarksNumber == num)
+                                if (aff4.RemarksNumber == num)
                                 {
                                     throw new ApplicationException("Duplicate remarks number in line\n" + line);
                                 }
