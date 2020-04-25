@@ -99,22 +99,17 @@ namespace AviationApp.FAADataParser.Aff
                             {
                                 throw new ApplicationException("Mismatch in AFF4 and AFF1\n" + line);
                             }
-                            IEnumerable<ArtccFrequencyInformation> frequencyQuery = from freq in facility.Frequencies
-                                                                                    where freq.Frequency == aff4.Frequency
-                                                                                    select freq;
-                            if (frequencyQuery.Count() != 1)
+                            IEnumerable<int> frequencyQuery = from freq in facility.FrequencyRemarks
+                                                              where freq.frequency == aff4.Frequency
+                                                              select freq.number;
+                            foreach(int num in frequencyQuery)
                             {
-                                throw new ApplicationException("Either no matching frequency found or multiple frequencies found\n" + line);
-                            }
-                            frequencyInformation = frequencyQuery.FirstOrDefault();
-                            foreach ((int number, string remark) remark in frequencyInformation.Remarks)
-                            {
-                                if (remark.number == aff4.RemarksNumber)
+                                if(aff4.RemarksNumber == num)
                                 {
                                     throw new ApplicationException("Duplicate remarks number in line\n" + line);
                                 }
                             }
-                            frequencyInformation.Remarks.Add((aff4.RemarksNumber, aff4.RemarksText));
+                            facility.FrequencyRemarks.Add((aff4.Frequency, aff4.RemarksNumber, aff4.RemarksText));
                             break;
                         default: throw new ApplicationException("Funny line\n" + line); // continue;
                     }

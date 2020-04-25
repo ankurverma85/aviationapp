@@ -19,5 +19,6 @@ namespace AviationApp.FAADataParser.Aff
         public string IcaoId { get; set; }
         public List<(int number, string remark)> FacilityRemarks { get; set; } = new List<(int number, string remark)>();
         public List<ArtccFrequencyInformation> Frequencies { get; set; } = new List<ArtccFrequencyInformation>();
+        public List<(decimal frequency, int number, string remark)> FrequencyRemarks { get; set; } = new List<(decimal frequency, int number, string remark)>();
     }
 }

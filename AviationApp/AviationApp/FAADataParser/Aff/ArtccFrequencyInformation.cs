@@ -17,6 +17,5 @@ namespace AviationApp.FAADataParser.Aff
         public string AirportName { get; set; } = null;
         public decimal? AirportLatitude { get; set; } = null;
         public decimal? AirportLongitude { get; set; } = null;
-        public List<(int number, string remark)> Remarks { get; set; } = new List<(int number, string remark)>();
     }
 }
