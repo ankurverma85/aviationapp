@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AviationApp.FAADataParser.Utils
 {
-    class ParseDateTime
+    class ParseDate
     {
         public static bool TryParse(string val, out DateTime dateTime)
         {
