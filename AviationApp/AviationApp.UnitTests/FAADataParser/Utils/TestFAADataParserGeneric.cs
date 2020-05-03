@@ -23,7 +23,7 @@ namespace AviationApp.UnitTests.FAADataParser.Utils
             };
             string fix1String = @"FIX1AARTA                         ALABAMA                       K734-36-21.290N 087-16-24.750WFIX                                                                                                                   YWAYPOINT       AARTAZME ZME                               NNN                                                                                                                                                                                                ";
 
-            Assert.IsTrue(FAADataParserGeneric<Fix1>.TryParse(fix1String, 466, parseFields, out Fix1 fix));
+            Assert.IsTrue(FAADataParserGeneric<Fix1>.TryParse(fix1String, 466, "FIX1", parseFields, out Fix1 fix));
             // Try parsing a real string from the database
             Assert.AreEqual("AARTA", fix.FixID);
             Assert.AreEqual("ALABAMA", fix.State);

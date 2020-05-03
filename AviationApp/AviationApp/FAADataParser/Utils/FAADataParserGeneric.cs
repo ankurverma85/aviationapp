@@ -9,6 +9,7 @@ namespace AviationApp.FAADataParser.Utils
         public static bool TryParse(
             string input,
             int expectedInputLength,
+            string prefixString,
             List<(int fieldBegin, int fieldLength, Type parserType, string propertyName, bool nullable)> fieldList,
             out T output
             )
@@ -16,6 +17,11 @@ namespace AviationApp.FAADataParser.Utils
             output = new T();
             Type t = output.GetType();
             if (input.Length != expectedInputLength)
+            {
+                return false;
+            }
+            int lengthOfPrefixString = prefixString.Length;
+            if(input.Substring(0, lengthOfPrefixString) != prefixString)
             {
                 return false;
             }
