@@ -27,7 +27,7 @@ namespace AviationApp.FAADataParser.Utils
             }
             foreach (var field in fieldList)
             {
-                PropertyInfo property = t.GetProperty(field.propertyName);
+                PropertyInfo property = t.GetProperty(field.propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
                 string fieldSubstring = input.Substring(field.fieldBegin, field.fieldLength).Trim();
                 if (fieldSubstring.Length == 0)
                 {
